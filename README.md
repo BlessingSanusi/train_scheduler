@@ -1,4 +1,4 @@
-# train_scheduler
+# Train_scheduler
 
 ![train schedule](assets/images/trainschedule.png)
 
@@ -8,7 +8,7 @@ A train schedule application that incorporates Firebase to host arrival and depa
 
 ### How it works
 
-- App specs:
+- Application specs:
 
   - When adding trains, administrators will be able to submit the following:
 
@@ -20,6 +20,6 @@ A train schedule application that incorporates Firebase to host arrival and depa
 
     - Frequency -- in minutes
 
-  - app calculates when the next train will arrive; it is relative to the current time.
+  - App calculates when the next train will arrive; it is relative to the current time.
 
   - Users from many different machines are able to view same train times.
