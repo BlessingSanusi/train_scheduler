@@ -20,10 +20,11 @@ var firstTrain = "";
 var frequency = 0;
 var submit = $("#submitBtn");
 
+//caputuring submit button
 submit.on("click", function(event) {
-  //   console.log("hello");
   event.preventDefault();
 
+  //getting values from form inputs
   trainName = $("#train-name")
     .val()
     .trim();
@@ -42,6 +43,7 @@ submit.on("click", function(event) {
   console.log(firstTrain);
   console.log(frequency);
 
+  //adding inputs to the data base
   database.ref().push({
     trainName: trainName,
     destination: destination,
@@ -50,9 +52,11 @@ submit.on("click", function(event) {
     dateAdded: firebase.database.ServerValue.TIMESTAMP
   });
 
+  //clearing form
   $("#train-form")[0].reset();
 });
 
+// referencing child's location in the database and grabbing input values
 database.ref().on("child_added", function(snapshot) {
   console.log(snapshot.val());
 
@@ -66,6 +70,7 @@ database.ref().on("child_added", function(snapshot) {
   console.log(firstTrain);
   console.log(frequency);
 
+  //setting up momentjs and calculating time
   var firstTimeConverted = moment(firstTrain, "HH:mm").subtract(1, "years");
   console.log(firstTimeConverted);
 
@@ -91,12 +96,20 @@ database.ref().on("child_added", function(snapshot) {
     .format("hh:mm a");
   console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm a"));
 
+  //creating rows and columns
   var addRow = $("<tr>").append(
     $("<td>").text(trainName),
     $("<td>").text(destination),
     $("<td>").text(frequency),
     $("<td>").text(nextTrain),
-    $("<td>").text(tMinutesTillTrain)
+    $("<td>").text(tMinutesTillTrain),
+    $("<td>").attr(
+      { type: "button" }.val("button").click(function() {
+        updateTask(trainName, destination, frequency);
+      })
+    )
   );
+
+  //appending rows and columns to tbody
   $("#add-row").append(addRow);
 });
